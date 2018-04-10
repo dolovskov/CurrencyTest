@@ -12,10 +12,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var apiClient: DataProvider!
+    var currencyViewModel: CurrencyViewModel!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        apiClient = ApiClient()
+        currencyViewModel = CurrencyViewModel(dataProvider: apiClient)
+        if let viewController = (window?.rootViewController as? UINavigationController)?.topViewController as? ViewController {
+            viewController.viewModel = currencyViewModel
+        }
+        
         return true
     }
 
